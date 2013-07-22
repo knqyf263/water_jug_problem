@@ -1,8 +1,6 @@
 #! /usr/bin/python
 
-import random
-import commands
-import sys
+import random,commands,sys,time
 
 def gcd(a, b):
     if b == 0:
@@ -20,6 +18,9 @@ def create(num):
 	
 		if n % gcd(s,l) == 0:
 			break	
+
+#	command = "/home/elab/bin/water/water_jug.pl %d %d %d" % (s,l,n)
+#	print commands.getoutput(command)
 
 	return [s,l,n]
 
@@ -43,7 +44,7 @@ def put_jug(obj):
 
 def problem(num):
 	print "Room %d" % ( num + 1)
-	problem = create(10)
+	problem = create(100)
 	size = {"red":problem[0], "blue":problem[1]}
 	scale = problem[2]
 	jug = {"red":0, "blue":0}
@@ -120,8 +121,14 @@ def problem(num):
 print "\n"
 print "You see a large room with sleek black walls on every side.  The ceiling overhead is smooth and devoid of features. In the center of the room is a small scale that links to a closed door.\nA small fountain is gurgling water in the corner. The scale has a small inscription on it.\nA red jug is sitting in the room.\nA blue jug is sitting in the room.\nA fountain is sitting in the room.\nA scale is sitting in the room.\n"
 
-for i in range(0,50):
-	if problem(i):
+starttime = time.time()
+for i in range(0,100):
+	current = int(time.time() - starttime)
+	print "time:%dsec" % (current)
+	if current > 30:
+		print "too slow..."
+		sys.exit()
+	elif problem(i):
 		continue
 	else:
 		sys.exit()
